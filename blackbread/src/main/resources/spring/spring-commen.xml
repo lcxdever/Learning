@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+     		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        	http://www.springframework.org/schema/context
+        	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        	http://www.springframework.org/schema/mvc
+    		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    		http://www.springframework.org/schema/aop    
+          	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       		">
+	<!-- 开启annotation模式，定义扫描包 -->
+	<context:component-scan base-package="com.blackbread">
+		<!-- 不加载org.springframework.stereotype.Controller类型注解 -->
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<!-- 开启代理模式 -->
+	<aop:aspectj-autoproxy />
+	<!-- 记录用户访问日志 -->
+	<mvc:interceptors>
+		<bean class="com.blackbread.interceptor.LogNDCInteceptor" />
+	</mvc:interceptors>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- 解决乱码问题 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<bean class="org.springframework.http.MediaType">
+								<constructor-arg index="0" value="text" />
+								<constructor-arg index="1" value="plain" />
+								<constructor-arg index="2" value="UTF-8" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+     		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        	http://www.springframework.org/schema/context
+        	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       		">
+	<!-- 开启annotation模式，定义扫描包 -->
+	<!-- use-default-filters 为 false时候context:include-filter才起作用 -->
+	<context:component-scan base-package="com.blackbread"
+		use-default-filters="false">
+		<!-- 只载org.springframework.stereotype.Controller类型注解 -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- 对静态资源文件的访问 <mvc:default-servlet-handler /> 单独使用导致servlet访问不到 <mvc:annotation-driven 
+		/>使用导致下面解决乱码不好用 -->
+</beans>

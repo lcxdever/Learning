@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 public class UseJson {
-	public void getByJson(@Json(param = "aa", requied = false) String aaa) {
+	public void getByJson(@Json(param = "aa",requied=false) String aaa) {
 		Method[] ms = UseJson.class.getMethods();
 		for (Method m : ms) {
 			Annotation[][] as = m.getParameterAnnotations();

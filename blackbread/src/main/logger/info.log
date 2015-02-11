@@ -1,0 +1,8 @@
+2015-02-11 16:14:57 INFO [com.mchange.v2.log.MLog] - MLog clients using log4j logging.
+2015-02-11 16:15:03 INFO [com.mchange.v2.c3p0.C3P0Registry] - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-02-11 16:31:34 INFO [com.mchange.v2.log.MLog] - MLog clients using log4j logging.
+2015-02-11 16:31:34 INFO [com.mchange.v2.c3p0.C3P0Registry] - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-02-11 16:37:10 INFO [com.mchange.v2.log.MLog] - MLog clients using log4j logging.
+2015-02-11 16:37:10 INFO [com.mchange.v2.c3p0.C3P0Registry] - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2015-02-11 16:44:01 INFO [com.mchange.v2.log.MLog] - MLog clients using log4j logging.
+2015-02-11 16:44:02 INFO [com.mchange.v2.c3p0.C3P0Registry] - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]

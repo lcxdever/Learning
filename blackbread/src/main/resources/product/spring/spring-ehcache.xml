@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:ehcache="http://www.springmodules.org/schema/ehcache" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+			 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springmodules.org/schema/ehcache http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd">
+
+	<!-- 配置eh缓存管理器 -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+		p:cache-manager-ref="ehCacheManagerFactoryBean" />
+	<bean id="ehCacheManagerFactoryBean"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:config-location="classpath:ehcache.xml" p:shared="true" />
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager" ref="ehCacheManagerFactoryBean" />
+		<!-- 使用缓存 关联ehcache.xml中的缓存配置 -->
+		<property name="cacheName" value="blackbread_ehcache1" />
+	</bean>
+
+	<!-- 配置一个缓存拦截器对象，处理具体的缓存业务 -->
+	<bean id="cacheMethodInterceptor" class="com.blackbread.extras.cache.CacheMethodInterceptor">
+		<property name="ehcache" ref="ehcache" />
+	</bean>
+
+	<!-- 参与缓存的切入点对象 (切入点对象，确定何时何地调用拦截器) -->
+	<bean class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<!-- 配置缓存切面 -->
+		<property name="advice" ref="cacheMethodInterceptor" />
+		<!-- 配置哪些方法参与缓存策略 .表示符合任何单一字元 ### +表示符合前一个字元一次或多次 ### *表示符合前一个字元零次或多次 ### 
+			\Escape任何Regular expression使用到的符号 -->
+		<!-- .*表示前面的前缀(包括包名) 表示print方法 -->
+		<property name="patterns">
+			<list>
+				<value>
+					<!-- com.shadow.mvc.service\..Service.*\.find.* -->
+					com\.blackbread\.service\.imp\..*Service.*\.list.*
+				</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 配置一个缓存拦截器对象，处理具体的同步缓存业务 -->
+	<bean id="cacheMethodAfterAdvice" class="com.blackbread.extras.cache.CacheMethodAfterAdvice">
+		<property name="ehcache" ref="ehcache" />
+	</bean>
+	<aop:config>
+		<aop:aspect id="methodCachePointCutAdviceAspect" ref="cacheMethodAfterAdvice">
+			<aop:after method="afterReturning"
+				pointcut="execution(* com.blackbread.service.*Service.modify*(..))" />
+			<aop:after method="afterReturning"
+				pointcut="execution(* com.blackbread.service.*Service.save*(..))" />
+			<aop:after method="afterReturning"
+				pointcut="execution(* com.blackbread.service.*Service.remove*(..))" />
+		</aop:aspect>
+	</aop:config>
+</beans>

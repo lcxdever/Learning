@@ -17,53 +17,53 @@
 		<!-- 通过key-value的形式来关联数据源 -->
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">
-				<entry value-ref="C3P0_POSTGIS" key="C3P0_POSTGIS"></entry>
-				<entry value-ref="C3P0_POSTGIS2" key="C3P0_POSTGIS2"></entry>
+				<entry value-ref="C3P0_mysql"  key="C3P0_mysql"></entry>
+				<entry value-ref="C3P0_mysql2" key="C3P0_mysql2"></entry>
 			</map>
 		</property>
-		<property name="defaultTargetDataSource" ref="C3P0_POSTGIS" />
+		<property name="defaultTargetDataSource" ref="C3P0_mysql" />
 	</bean>
 
 	<!-- database config -->
-	<bean id="C3P0_POSTGIS" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<bean id="C3P0_mysql" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
-		<property name="driverClass" value="${postgis.driverClass}" />
-		<property name="jdbcUrl" value="${postgis.jdbcUrl}" />
-		<property name="user" value="${postgis.username}"></property>
-		<property name="password" value="${postgis.password}"></property>
-		<property name="minPoolSize" value="${postgis.miniPoolSize}" />
-		<property name="maxPoolSize" value="${postgis.maxPoolSize}" />
-		<property name="initialPoolSize" value="${postgis.initialPoolSize}" />
-		<property name="maxIdleTime" value="${postgis.maxIdleTime}" />
-		<property name="acquireIncrement" value="${postgis.acquireIncrement}" />
-		<property name="acquireRetryAttempts" value="${postgis.acquireRetryAttempts}" />
-		<property name="acquireRetryDelay" value="${postgis.acquireRetryDelay}" />
-		<property name="testConnectionOnCheckin" value="${postgis.testConnectionOnCheckin}" />
-		<property name="testConnectionOnCheckout" value="${postgis.testConnectionOnCheckout}" />
-		<property name="autoCommitOnClose" value="${postgis.autoCommitOnClose}" />
-		<property name="idleConnectionTestPeriod" value="${postgis.idleConnectionTestPeriod}" />
-		<property name="checkoutTimeout" value="${postgis.checkoutTimeout}" />
-		<property name="numHelperThreads" value="${postgis.numHelperThreads}" />
+		<property name="driverClass" value="${mysql.driverClass}" />
+		<property name="jdbcUrl" value="${mysql.jdbcUrl}" />
+		<property name="user" value="${mysql.username}"></property>
+		<property name="password" value="${mysql.password}"></property>
+		<property name="minPoolSize" value="${mysql.miniPoolSize}" />
+		<property name="maxPoolSize" value="${mysql.maxPoolSize}" />
+		<property name="initialPoolSize" value="${mysql.initialPoolSize}" />
+		<property name="maxIdleTime" value="${mysql.maxIdleTime}" />
+		<property name="acquireIncrement" value="${mysql.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${mysql.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${mysql.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${mysql.testConnectionOnCheckin}" />
+		<property name="testConnectionOnCheckout" value="${mysql.testConnectionOnCheckout}" />
+		<property name="autoCommitOnClose" value="${mysql.autoCommitOnClose}" />
+		<property name="idleConnectionTestPeriod" value="${mysql.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${mysql.checkoutTimeout}" />
+		<property name="numHelperThreads" value="${mysql.numHelperThreads}" />
 	</bean>
-	<bean id="C3P0_POSTGIS2" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	<bean id="C3P0_mysql2" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
-		<property name="driverClass" value="${postgis-115.driverClass}" />
-		<property name="jdbcUrl" value="${postgis-115.jdbcUrl}" />
-		<property name="user" value="${postgis-115.username}"></property>
-		<property name="password" value="${postgis-115.password}"></property>
-		<property name="minPoolSize" value="${postgis-115.miniPoolSize}" />
-		<property name="maxPoolSize" value="${postgis-115.maxPoolSize}" />
-		<property name="initialPoolSize" value="${postgis-115.initialPoolSize}" />
-		<property name="maxIdleTime" value="${postgis-115.maxIdleTime}" />
-		<property name="acquireIncrement" value="${postgis-115.acquireIncrement}" />
-		<property name="acquireRetryAttempts" value="${postgis-115.acquireRetryAttempts}" />
-		<property name="acquireRetryDelay" value="${postgis-115.acquireRetryDelay}" />
-		<property name="testConnectionOnCheckin" value="${postgis-115.testConnectionOnCheckin}" />
-		<property name="testConnectionOnCheckout" value="${postgis-115.testConnectionOnCheckout}" />
-		<property name="autoCommitOnClose" value="${postgis-115.autoCommitOnClose}" />
-		<property name="idleConnectionTestPeriod" value="${postgis-115.idleConnectionTestPeriod}" />
-		<property name="checkoutTimeout" value="${postgis-115.checkoutTimeout}" />
-		<property name="numHelperThreads" value="${postgis-115.numHelperThreads}" />
+		<property name="driverClass" value="${mysql-2.driverClass}" />
+		<property name="jdbcUrl" value="${mysql-2.jdbcUrl}" />
+		<property name="user" value="${mysql-2.username}"></property>
+		<property name="password" value="${mysql-2.password}"></property>
+		<property name="minPoolSize" value="${mysql-2.miniPoolSize}" />
+		<property name="maxPoolSize" value="${mysql-2.maxPoolSize}" />
+		<property name="initialPoolSize" value="${mysql-2.initialPoolSize}" />
+		<property name="maxIdleTime" value="${mysql-2.maxIdleTime}" />
+		<property name="acquireIncrement" value="${mysql-2.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${mysql-2.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${mysql-2.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${mysql-2.testConnectionOnCheckin}" />
+		<property name="testConnectionOnCheckout" value="${mysql-2.testConnectionOnCheckout}" />
+		<property name="autoCommitOnClose" value="${mysql-2.autoCommitOnClose}" />
+		<property name="idleConnectionTestPeriod" value="${mysql-2.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${mysql-2.checkoutTimeout}" />
+		<property name="numHelperThreads" value="${mysql-2.numHelperThreads}" />
 	</bean>
 	<!--配置数据源切换实现类 -->
 	<bean id="dataSourceSwitch" class="com.blackbread.spring.db.dynamic.DataSourceSwitch">
@@ -73,8 +73,8 @@
 		<!-- 切面数据源进行切换 -->
 		<aop:aspect id="dataSourceSwitchAspect" ref="dataSourceSwitch">
 			<aop:before method="switchSource"
-				pointcut="execution(* com.blackbread.service.*Service.list*(..)) and args(type,..)"
-				arg-names="type" />
+				pointcut="execution(* com.blackbread.service.*Service.insert*(..)) and args(user,..)"
+				arg-names="user" />
 		</aop:aspect>
 	</aop:config>
 	<!-- 配置数据源切换实现类 -->
@@ -86,4 +86,15 @@
 				pointcut="execution(* com.blackbread.service.*Service.*(..))" />
 		</aop:aspect>
 	</aop:config>
+	<!-- mybatis配置 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dynamicDataSource" />
+		<!-- mybatis配置文件 -->
+		<property name="mapperLocations" value="classpath:com/blackbread/dao/mapper/*.xml" />
+	</bean>
+	<!--mapper scanning -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.blackbread.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
 </beans>

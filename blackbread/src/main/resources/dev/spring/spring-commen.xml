@@ -29,8 +29,8 @@
 		<property name="locations">
 			<list>
 				<!-- 数据库配置文件 -->
-				<value>classpath:properties/c3p0-jdbc.properties</value>
-				<value>classpath:properties/c3p0-postgis-115.properties</value>
+				<value>classpath:properties/c3p0-mysql.properties</value>
+				<value>classpath:properties/c3p0-mysql-2.properties</value>
 				<!-- 缓存服务器配置文件
 				<value>classpath:properties/memcached.properties</value> -->
 			</list>

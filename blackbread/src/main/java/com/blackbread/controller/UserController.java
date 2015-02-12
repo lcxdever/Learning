@@ -39,8 +39,8 @@ public class UserController {
 	@RequestMapping(value = "/list/{type}")
 	public String list(@PathVariable int type, HttpServletRequest request,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		List<Map<String, Object>> list = userService.list(type);
-		String json = JsonUtil.jsonFromObject(list);
+		
+		String json = JsonUtil.jsonFromObject("");
 //		for (Cookie cookie2 : request.getCookies()) {
 //			System.out.println(cookie2.getName() + ":" + cookie2.getValue());
 //		}
@@ -49,13 +49,18 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String save(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
-		userService.save(user);
+		userService.insert(user);
 		return "success";
 	}
-
+	@ResponseBody
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(@ModelAttribute("user") User user,
+			HttpServletRequest request, ModelMap modelMap) {
+		return String.valueOf(userService.login(user));
+	}
 	@RequestMapping(method = RequestMethod.GET)
 	public String query(HttpServletRequest request, ModelMap modelMap,
 			@RequestParam("name") String name) {

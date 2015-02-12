@@ -1,12 +1,16 @@
 package com.blackbread.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.blackbread.model.User;
+import com.blackbread.utils.Pagination;
 
 public interface UserService {
-	public void save(User user);
+	public void insert(User user);
 
-	public List<Map<String, Object>> list(int type);
+	public Pagination query(Pagination pagination, User user);
+
+	public void modify(User user);
+
+	public void delete(User user);
+
+	public boolean login(User user);
 }

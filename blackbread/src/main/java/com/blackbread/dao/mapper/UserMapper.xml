@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blackbread.dao.UserMapper">
+	<resultMap type="com.blackbread.model.User" id="BaseResultMap">
+		<id column="ID" property="id" jdbcType="BIGINT" />
+		<result column="USERNAME" property="userName" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="passWord" jdbcType="VARCHAR" />
+		<result column="SALT" property="salt" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
+		<result column="CREATEUSER" property="createUser" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="query" resultType="com.blackbread.model.User"  parameterType="java.util.HashMap">
+	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
+		SELECT ID, USERNAME, PASSWORD,SALT,CREATETIME,CREATEUSER FROM T_USER ORDER BY CREATETIME
+	) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
+	</select>
+	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
+		SELECT count(1) FROM T_USER ORDER BY CREATETIME
+	</select>
+	<select id="queryByID" resultType="com.blackbread.model.User"  parameterType="com.blackbread.model.User">
+		SELECT ID, USERNAME, PASSWORD,SALT,CREATETIME,CREATEUSER FROM T_USER WHERE USERNAME=#{userName}
+	</select>
+	<insert id="insert" parameterType="com.blackbread.model.User">
+		insert into
+		T_USER(ID,USERNAME,PASSWORD,SALT,CREATETIME,CREATEUSER)
+		values(#{id},#{userName},#{passWord},#{salt},#{createTime},#{createUser})
+	</insert>
+	<update id="modify" parameterType="com.blackbread.model.User">  
+	    UPDATE T_USER  
+	    <set>  
+	        <if test="userName != null">  
+	            USERNAME = #{userName},  
+	        </if>  
+	        <if test="passWord != null">  
+	            PASSWORD = #{passWord},  
+	            SALT=#{salt}
+	        </if>  
+	    </set>  
+	    where ID = #{id}  
+	</update>  
+
+	<delete id="delete" parameterType="com.blackbread.model.User">  
+		DELETE T_USER WHERE ID=#{id}
+	</delete>
+</mapper>  

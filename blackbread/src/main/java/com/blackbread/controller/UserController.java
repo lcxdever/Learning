@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.blackbread.model.User;
 import com.blackbread.service.UserService;
 import com.blackbread.utils.JsonUtil;
+import com.blackbread.utils.Pagination;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -36,15 +37,13 @@ public class UserController {
 	UserService userService;
 
 	@ResponseBody
-	@RequestMapping(value = "/list/{type}")
-	public String list(@PathVariable int type, HttpServletRequest request,
+	@RequestMapping(value = "/list/{pageSize}/{pageNo}")
+	public String list(@PathVariable int pageSize, @PathVariable int pageNo,
+			HttpServletRequest request, @ModelAttribute("user") User user,
 			HttpServletResponse response, ModelMap modelMap) throws Exception {
-		
-		String json = JsonUtil.jsonFromObject("");
-//		for (Cookie cookie2 : request.getCookies()) {
-//			System.out.println(cookie2.getName() + ":" + cookie2.getValue());
-//		}
-		// response.addCookie(cookie);
+		Pagination pagination = new Pagination(pageNo, pageSize);
+		pagination=userService.query(pagination, user);
+		String json = JsonUtil.jsonFromObject(pagination);
 		return json;
 	}
 
@@ -55,12 +54,14 @@ public class UserController {
 		userService.insert(user);
 		return "success";
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@ModelAttribute("user") User user,
 			HttpServletRequest request, ModelMap modelMap) {
 		return String.valueOf(userService.login(user));
 	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String query(HttpServletRequest request, ModelMap modelMap,
 			@RequestParam("name") String name) {

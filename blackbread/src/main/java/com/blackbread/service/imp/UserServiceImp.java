@@ -7,14 +7,18 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.blackbread.dao.UserMapper;
 import com.blackbread.model.User;
 import com.blackbread.service.UserService;
+import com.blackbread.utils.MapHelper;
 import com.blackbread.utils.Pagination;
 import com.blackbread.utils.UUID;
-import com.blackbread.utils.encrypt.MD5;
 import com.blackbread.utils.encrypt.PwdUtil;
+import com.github.miemiedev.mybatis.paginator.domain.Order;
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -30,16 +34,21 @@ public class UserServiceImp implements UserService {
 		userMapper.insert(user);
 	}
 
+	/**
+	 * 使用/mybatis-paginator分页控件，参数只可为Map
+	 */
+	@SuppressWarnings("rawtypes")
 	public Pagination query(Pagination pagination, User user) {
-		if (pagination == null)
-			pagination = new Pagination(1, 10000);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("start", pagination.getStart());
-		map.put("end", pagination.getEnd());
-		long totolCount = userMapper.count(map);
-		pagination.setTotalCount(totolCount);
-		List<User> list = userMapper.query(map);
-		pagination.setValuesList(list);
+		String sortString = "CREATETIME.DESC";// 如果你想排序的话逗号分隔可以排序多列
+		PageBounds pageBounds = new PageBounds(pagination.getPageNo(),
+				pagination.getPageSize(), Order.formString(sortString));
+		if(StringUtils.hasLength(user.getUserName()))
+			user.setUserName("%"+user.getUserName()+"%");
+		Map<String,Object> map=new HashMap<String, Object>();
+		map=MapHelper.Bean2Map(user);
+		List<User> list = userMapper.query(map, pageBounds);
+		pagination.setItems(list);
+		pagination.setTotalCount(((PageList) list).getPaginator().getTotalCount());
 		return pagination;
 	}
 
@@ -64,7 +73,8 @@ public class UserServiceImp implements UserService {
 		user = userMapper.queryByID(user);
 		if (user == null)
 			return false;
-		return PwdUtil.validatePassword(user.getPassWord(), passWord, user.getSalt());
+		return PwdUtil.validatePassword(user.getPassWord(), passWord,
+				user.getSalt());
 	}
 
 }

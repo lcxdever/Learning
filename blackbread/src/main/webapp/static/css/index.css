@@ -1,0 +1,86 @@
+.carousel-indicators {
+	  bottom: -1px;
+	  left: 8%;
+	}
+.carousel-indicators li {
+  background-color: #366AC9;
+  border: 1px solid #366AC9;
+  width: 10px;
+  height: 10px;
+}
+.carousel-indicators .active {
+  border: 1px solid #fff;
+   margin: 1px;
+  width: 10px;
+  height: 10px;
+}
+   .carousel .item {
+       height: 350px;//固定高度
+   }
+   .carousel img{
+       width: 100%;//图片自适应
+   }
+   .carousel {
+	 width: 690px;//图片自适应
+        height: 350px;
+        float: left;
+    }
+
+   .c_1{width: 1000px;height: 350px;}
+      .login{
+   	width: 292px;
+   	height: 350px;
+   	background-color: #FFF;
+   	float: right;
+   	position: relative;
+   }
+   .login_top{
+   	height:46px;
+   	background-image: url("../images/login_top.png");
+   }
+   .login_txt{color: #fff;margin-left: 50px;font-weight:600;line-height: 47px;font-size: 13px;}
+   .language_txt{color: #fff;margin-right:17px;line-height: 47px;font-size: 13px;float: right;cursor: pointer;}
+   .languageSel{display:none;overflow: hidden;width: 60px;padding: 5px;position: absolute;z-index: 100;right: 10px;top: 35px}
+.languageSel option{height: 20px;font-size: 10px;}
+.languageSel option:hover {background-color: #B1D2F4;}
+   .language_txt:hover .languageSel{display: block;}
+   .login_mid{width: 236px;margin: auto;}
+   .username{height: 35px;background-image: url("../images/uname.png");margin-top: 10px;}
+   .username input,.password input{width: 197px;float: right;border: none;height: 31px;margin-top: 1px;margin-right: 1px}
+   .password{height: 35px;background-image: url("../images/password.png");margin-top: 10px;}
+   .username_txt{margin-top: 30px;color: #999;font-size: 12px}
+   .password_txt{margin-top: 10px;color: #999;font-size: 12px}
+   .logint_btn{width: 241px;height: 44px;background-image:url("../images/login_btn_none.png");cursor: pointer;margin-top: 40px;color: #fff;line-height: 44px;text-align: center;}
+.logint_btn:hover{background-image:url("../images/login_btn_hover.png")}
+.error_info{position: absolute;height: 20px;color: red;bottom: 105px;text-align: center;width: 236px;}
+.regist{cursor:pointer;float: right;font-size: 12px;color: #0068B7;margin-top: 20px; text-decoration: none}
+.show_detail{cursor:pointer;float: right;margin-right: 50px;}
+.regist:link,.show_detail:link{ color: #0068B7;  text-decoration: none}
+.regist:visited,.show_detail:visited { color: #0068B7;  text-decoration: none}
+.regist:hover,.show_detail:hover{color: #FF7201; text-decoration: underline;}
+.regist:active,.show_detail:active { color: #ff7f24; text-decoration: underline;}
+.c_2{
+   	width: 1000px;
+   	height: 240px;
+   	margin: 30px auto 0px auto;
+   }
+   .c_2_top{height: 40px;background-image: url("../images/titles.png");}
+   .news_list{height: 40px;width: 150px;float: left;cursor: pointer;}
+   .notic_list{height: 40px;width: 150px;float: left;cursor: pointer;margin-left: 200px;}
+   .rule_list{height: 40px;width: 150px;float: left;cursor: pointer;margin-left: 200px;}
+   .c_2_mid{height: 200px;background-color: #fff;}
+   .news{float: left;margin: 15px 0px 0px 13px;}
+   .notice{float: left;margin: 25px 0px 0px 50px;}
+   .rules{float: left;margin: 25px 0px 0px 60px;}
+   .notice ul,.rules ul{padding: 0px}
+   .li_cont{width: 100%;float: left}
+   .notice ul li,.rules ul li{list-style-type:none;padding-left: 10px;line-height: 25px;background:url("../images/yellow_qu.png") no-repeat left;width: 280px}
+   .notice li span,.rules li span{color: #999999;float: right;}
+   .point{float: left;background-image: url('../images/li.png');width: 3px;height: 2px;margin-top: 10px}
+   .notice ul li a{margin-left:5px;float:left;width:190px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+   .rules ul li a{margin-left:5px;float:left;width:250px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+   .notice ul li a:link,.rules ul li a:link{ color: #333333;  text-decoration: none}
+.notice ul li a:visited,.rules ul li a:visited { color: #333333;  text-decoration: none}
+.notice ul li a:hover,.rules ul li a:hover{color: #FF7201; text-decoration: underline;}
+.notice ul li a:active,.rules ul li a:active { color: #ff7f24; text-decoration: underline;}
+   .news div{width: 297px;line-height: 25px;padding-top: 10px}

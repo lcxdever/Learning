@@ -2,14 +2,15 @@ package com.blackbread.spring.db.dynamic;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.blackbread.model.User;
+import com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor;
 
 public class DataSourceSwitch {
 	private final static Logger logger = Logger
 			.getLogger(DataSourceSwitch.class);
 	private DataSourceEntry dataSourceEntry;
-
 	public void setDataSourceEntry(DataSourceEntry dataSourceEntry) {
 		this.dataSourceEntry = dataSourceEntry;
 	}

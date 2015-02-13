@@ -4,74 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pagination {
-	public List<?> valuesList;
-	public long totalCount;
-	public int pageNo;
-	public int pageSize;
-	public int start;
-	public int end;
-	public int limit;
-	public long totalPage;
-	public List<Integer> pages;
-	public final int maxShowPage = 5;
+	private List<?> items;
+	private long totalCount;
+	private int pageNo;
+	private int pageSize;
+	private long totalPage;
+	private List<Integer> pages;
+	private int maxShowPage = 5;
 
 	public Pagination() {
 	}
 
-	public Pagination(int pageNo, int limit) {
-		if (pageNo < 1 || limit < 0)
+	public Pagination(int pageNo, int pageSize) {
+		if (pageNo < 1 || pageSize < 1)
 			throw new RuntimeException("分页参数异常");
-		this.start = (pageNo - 1) * limit + 1;
-		this.limit = limit;
 		this.pageNo = pageNo;
-		this.pageSize = limit;
-		this.end = pageNo * limit;
+		this.pageSize = pageSize;
 	}
 
-	public Pagination(String pageNo, String limit) {
-		try {
-			int pNumber = Integer.valueOf(pageNo);
-			int pSize = Integer.valueOf(limit);
-			if (pNumber < 1 || pSize < 0)
-				throw new RuntimeException("分页参数异常");
-			this.start = (pNumber - 1) * pSize + 1;
-			this.limit = pSize;
-			this.pageNo = pNumber;
-			this.pageSize = pSize;
-			this.end = pNumber * pSize;
-		} catch (NumberFormatException e) {
+	public Pagination(int pageNo, int pageSize, int showPages) {
+		if (pageNo < 1 || pageSize < 1 || showPages < 1)
 			throw new RuntimeException("分页参数异常");
-		}
-	}
-
-	public void instance() {
-		if (this.pageNo < 1 || this.pageSize < 0)
-			throw new RuntimeException("分页参数异常");
-		if(this.pageSize==0)
-			this.pageSize=10;
-		this.start = (this.pageNo - 1) * this.pageSize + 1;
-		this.limit = this.pageSize;
-		this.end = pageNo * limit;
-	}
-
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
-	public List<?> getValuesList() {
-		return valuesList;
-	}
-
-	public void setValuesList(List<?> valuesList) {
-		this.valuesList = valuesList;
-	}
-
-	public long getTotalCount() {
-		return totalCount;
+		this.pageNo = pageNo;
+		this.pageSize = pageSize;
+		this.maxShowPage = showPages;
 	}
 
 	public void setTotalCount(long totalCount) {
@@ -88,6 +44,26 @@ public class Pagination {
 		}
 	}
 
+	public List<?> getItems() {
+		return items;
+	}
+
+	public void setItems(List<?> items) {
+		this.items = items;
+	}
+
+	public int getMaxShowPage() {
+		return maxShowPage;
+	}
+
+	public void setMaxShowPage(int maxShowPage) {
+		this.maxShowPage = maxShowPage;
+	}
+
+	public long getTotalCount() {
+		return totalCount;
+	}
+
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -102,22 +78,6 @@ public class Pagination {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
-	}
-
-	public int getStart() {
-		return start;
-	}
-
-	public void setStart(int start) {
-		this.start = start;
-	}
-
-	public int getEnd() {
-		return end;
-	}
-
-	public void setEnd(int end) {
-		this.end = end;
 	}
 
 	public long getTotalPage() {

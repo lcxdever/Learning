@@ -9,10 +9,11 @@
 		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
 		<result column="CREATEUSER" property="createUser" jdbcType="VARCHAR" />
 	</resultMap>
-	<select id="query" resultType="com.blackbread.model.User"  parameterType="java.util.HashMap">
-	SELECT * FROM ( SELECT A.*, ROWNUM RN FROM (
-		SELECT ID, USERNAME, PASSWORD,SALT,CREATETIME,CREATEUSER FROM T_USER ORDER BY CREATETIME
-	) A WHERE <![CDATA[ ROWNUM <=#{end}) WHERE RN >=#{start}	]]>
+	<select id="query" resultType="com.blackbread.model.User">
+		SELECT ID, USERNAME, PASSWORD,SALT,CREATETIME,CREATEUSER FROM T_USER WHERE 1 = 1
+        <if test="userName != null and userName!=''">  
+          AND  USERNAME LIKE #{userName}
+        </if>
 	</select>
 	<select id="count" resultType="java.lang.Long"  parameterType="java.util.HashMap">
 		SELECT count(1) FROM T_USER ORDER BY CREATETIME
@@ -28,10 +29,10 @@
 	<update id="modify" parameterType="com.blackbread.model.User">  
 	    UPDATE T_USER  
 	    <set>  
-	        <if test="userName != null">  
+	        <if test="userName != null and userName!=''">  
 	            USERNAME = #{userName},  
 	        </if>  
-	        <if test="passWord != null">  
+	        <if test="passWord != null and passWord!=''">  
 	            PASSWORD = #{passWord},  
 	            SALT=#{salt}
 	        </if>  

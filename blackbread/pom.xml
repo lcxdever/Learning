@@ -147,6 +147,11 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+	    <dependency>
+	        <groupId>com.github.miemiedev</groupId>
+	        <artifactId>mybatis-paginator</artifactId>
+	        <version>1.2.15</version>
+	    </dependency>
 		<!-- ======================================== -->
 		<!-- EHcache -->
 		<dependency>

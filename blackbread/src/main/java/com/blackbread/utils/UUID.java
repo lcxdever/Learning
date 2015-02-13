@@ -12,10 +12,10 @@ public class UUID {
 	}
 
 	public static UUID getInstance() {
-		return SingltoHolder.uuid;
+		return SingltonHolder.uuid;
 	}
 
-	private static class SingltoHolder {
+	private static class SingltonHolder {
 		private static UUID uuid = new UUID();
 	}
 

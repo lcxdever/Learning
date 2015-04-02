@@ -7,8 +7,8 @@ public class UUID {
 		idWorker = new IdWorker(1, 31);
 	}
 
-	public long next() {
-		return idWorker.nextId();
+	public String next() {
+		return String.valueOf(idWorker.nextId());
 	}
 
 	public static UUID getInstance() {

@@ -1,8 +1,5 @@
 package com.blackbread.utils.encrypt;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.security.KeyFactory;
@@ -18,23 +15,20 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * 供服务端使用，对请求进行签名和验证
  * 
  */
 public class RSA {
-    private static final Logger logger = LoggerFactory
-            .getLogger(RSA.class);
-	public static final String  SIGN_ALGORITHMS = "SHA1WithRSA";
+	public static final String  SIGN_ALGORITHMS = "SHA256WithRSA";
+	public static final String input_charset="UTF-8";
 	
 	/**
 	 * RSA签名
-	 * 服务端用来对字符串内容进行签名
-	 * 1、向Alipay发送请求时（使用提交给Alipay的私钥）
-	 * 2、向业务部门发送通知时 （使用自己的私钥）
 	 * @param content 待签名字符串
-	 * @param privateKey 的私钥
+	 * @param privateKey 高德支付的私钥
 	 * @param inputCharset 编码格式
 	 * @return 签名值
 	 */
@@ -45,6 +39,7 @@ public class RSA {
         	PrivateKey priKey 				= keyf.generatePrivate(priPKCS8);
 			Signature signature= Signature.getInstance(SIGN_ALGORITHMS);
 			signature.initSign(priKey);
+			content=DigestUtils.sha256Hex(content);
 			signature.update(content.getBytes(inputCharset));
 			
 			byte[] signed = signature.sign();
@@ -53,7 +48,6 @@ public class RSA {
 		}
 		catch (Exception e) 
         {
-            logger.error("rsa sign error",e);
         	e.printStackTrace();
         }
 		return null;
@@ -62,9 +56,6 @@ public class RSA {
 	
 	/**
 	* RSA验签名检查
-	* 服务端用来对第三方发来的内容进行签名验证
-	* 1、对Alipay返回的通知进行签名验证
-	* 2、对业务部门发送来的请求进行签名验证
 	* @param content 待签名数据
 	* @param sign 签名值
 	* @param publicKey 对方公钥
@@ -84,6 +75,7 @@ public class RSA {
 			.getInstance(SIGN_ALGORITHMS);
 		
 			signature.initVerify(pubKey);
+			content=DigestUtils.sha256Hex(content);
 			signature.update( content.getBytes(inputCharset) );
 		
 			boolean bverify = signature.verify( Base64.decode(sign) );
@@ -92,7 +84,6 @@ public class RSA {
 		} 
 		catch (Exception e) 
 		{
-            logger.error("rsa verify error",e);
 			e.printStackTrace();
 		}
 		return false;
@@ -220,11 +211,11 @@ public class RSA {
         // 模长  
         int key_len = publicKey.getModulus().bitLength() / 8;  
         // 加密数据长度 <= 模长-11  
-        String[] datas = splitString(data, key_len - 11);  
+        byte [][] datas = splitArray(data.getBytes(), key_len - 11);  
         String mi = "";  
         //如果明文长度大于模长-11则要分组加密  
-        for (String s : datas) {  
-            mi += bcd2Str(cipher.doFinal(s.getBytes()));  
+        for (byte [] s : datas) {  
+            mi += bcd2Str(cipher.doFinal(s));  
         }  
         return mi;  
     }  
@@ -364,14 +355,19 @@ public class RSA {
 		String pub_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC1mHZJHUj9C4GQriKSwJoAblQWK/MbhEVv9khCJ7scxq5MOdIFVL69/5Ekm4gUhn3p2mkfzmlMBpkBZv1in6BqTHiJv4icjHwrzQ65ejjQqnjiiWSUOPqEMTv9Is6LjKUcEqI19tj5lm+HBlfmI2kgZBhSqwoOj0nMTRDyy/fy+QIDAQAB";
 		String pri_key = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALWYdkkdSP0LgZCuIpLAmgBuVBYr8xuERW/2SEInuxzGrkw50gVUvr3/kSSbiBSGfenaaR/OaUwGmQFm/WKfoGpMeIm/iJyMfCvNDrl6ONCqeOKJZJQ4+oQxO/0izouMpRwSojX22PmWb4cGV+YjaSBkGFKrCg6PScxNEPLL9/L5AgMBAAECgYA0tp0ffDDDw6NIrEO89cu+dEhUZ02anzrI1WUETyQxpjrSRbaBdago3xby2XMXAjNqvsvlP7WxK/kePxcumcemldCH8CqX+OfLjlsc8jv5rOy9+MP3fSwdwMrrlq+6lonv+lW2uC0qkLV6oxxrZkS4brLOwqwrGxQPm3bQYKIpAQJBAO9N7ejx0UNrQw9SUJt+waoSUqZ5qSXXDtOqn4iZe3EASMINpjknh9JOc0MwQORtgZC3xWy6CeaScx8V+ULPEY0CQQDCQ9R0X/8gl2p9DdvhML9u+2hpPj0XZWkidP5qQb+20bymaUVF7h/DRHM+NyrqXZpCG+crANCsLB3C4uqUUk4dAkAe3KoGFMmsLDUl0LPcmehYCqzmE2KhIq8i1Spl74Vf+W1ouWHqlRKLKNrsm1iDHSxMgabQct28Ar8eDzNqTlIxAkEArNY0e6W9E34j3EcsTdpVN6SubJRXPi2XsHRutpLwwvMv6M7YNzN5Rv3rmnryz7mfuRmiPnxnLAfEItRI6NWhcQJBAN1gU2rx5G57oRyG9Y6D0+/teJDcbF9KLENb8MdPcYQMU8vV3YLan/Os8y7EggVEU2rDJ2/tgEHu7WMxN/y11LQ=";
 		String content = "testEncoder";
-		String signature = sign(content, pri_key, "UTF-8");
+		content="http://114.215.125.112/pay/gate?sid=4001&sign=1e72fc190cdaaf0c2b8f52806d2c8427&sign_type=MD5&batch_no=1503311py40000001&success_details=1503311CJ40000001^ll@qq.com^李莉^11.50^S^^20150213482827498^20150331142419|";
+//		for(int i=0;i<999;i++){
+//			content+="1503311CJ40000001^ll@qq.com^李莉^11.50^S^^20150213482827498^20150331142419|";
+//		}
+		System.out.println(content.length());
+		String signature = sign(content, pri_key, input_charset);
 		String result = URLEncoder.encode(signature, "UTF-8");
 		System.out.println(result);
-		boolean result1 = verify(content, signature, pub_key, "UTF-8");
+		boolean result1 = verify(content, signature, pub_key, input_charset);
 		System.out.println(result1);
-		String enStr = encryptStrByPubKey(content, "UTF-8");
+		String enStr = encryptStrByPubKey(content, pub_key);
 		System.out.println(enStr);
-		String deStr = decryptStrByPriKey(enStr, "UTF-8");
+		String deStr = decryptStrByPriKey(enStr, pri_key);
 		System.out.println(deStr);
 	}
 }

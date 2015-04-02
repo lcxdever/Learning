@@ -147,11 +147,11 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-	    <dependency>
-	        <groupId>com.github.miemiedev</groupId>
-	        <artifactId>mybatis-paginator</artifactId>
-	        <version>1.2.15</version>
-	    </dependency>
+		<dependency>
+			<groupId>com.github.miemiedev</groupId>
+			<artifactId>mybatis-paginator</artifactId>
+			<version>1.2.15</version>
+		</dependency>
 		<!-- ======================================== -->
 		<!-- EHcache -->
 		<dependency>
@@ -171,26 +171,31 @@
 			<version>1.9.13</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.8</version>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.50</version>
 		</dependency>
 		<dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.50</version>
-        </dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
 		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency> 
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-		 <dependency>   
-            <groupId>commons-io</groupId>  
-            <artifactId>commons-io</artifactId>  
-            <version>1.4</version>  
-        </dependency>
-        <dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
@@ -219,7 +224,7 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<encoding>utf8</encoding>  
+					<encoding>utf8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -262,8 +267,8 @@
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
 					</archive>
-<!-- 					<warName>boss-web</warName> -->
-					<webResources> 
+					<!-- <warName>boss-web</warName> -->
+					<webResources>
 						<resource>
 							<directory>src/main/resources/${package.environment}</directory>
 							<filtering>true</filtering>

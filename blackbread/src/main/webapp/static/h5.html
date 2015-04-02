@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>html5结构标签让页面布局更语义化</title>
+
+<style>
+body, div {
+	margin: 0px;
+	padding: 0px;
+}
+
+.clear:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: ".";
+	clear: both;
+	height: 0;
+}
+
+* html .clear {
+	zoom: 1;
+	clear: both;
+}
+
+*:first-child+html .clear {
+	zoom: 1;
+	clear: both;
+}
+
+.clear {
+	zoom: 1;
+	clear: both;
+}
+
+header, nav {
+	margin: 5px auto;
+	width: 80%;
+	height: 100px;
+	background: #595959;
+	color: white;
+	text-align: center;
+	line-height: 100px;
+}
+
+nav {
+	height: 50px;
+	line-height: 50px;
+}
+
+.roundCorder {
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+.container {
+	border: 1px solid white;
+	width: 80%;
+	height: auto;
+	margin: 5px auto;
+}
+
+.container section {
+	width: 65%;
+	height: 450px;
+	text-align: center;
+	font-size: 30px;
+	color: white;
+	line-height: 450px;
+	float: left;
+	background: #595959;
+}
+
+.container aside {
+	width: 32%;
+	height: 450px;
+	line-height: 450px;
+	text-align: center;
+	font-size: 30px;
+	color: white;
+	float: right;
+	background: #595959;
+}
+
+footer {
+	width: 80%;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 30px;
+	color: white;
+	margin: 5px auto;
+	background: #595959;
+}
+</style>
+
+</head>
+
+<body>
+
+	<header class="roundCorder"> header </header>
+	<nav class="roundCorder">nav</nav>
+	<div class="container clear">
+
+		<section class="roundCorder">section</section>
+
+		<aside class="roundCorder">aside</aside>
+	</div>
+
+	<footer class="roundCorder"> footer</footer>
+
+</body>
+
+</html>
